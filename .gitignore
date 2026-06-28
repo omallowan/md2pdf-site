@@ -1,0 +1,15 @@
+# Test files (not for deployment)
+TEST/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Node modules (if any)
+node_modules/

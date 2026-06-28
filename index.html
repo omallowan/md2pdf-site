@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathPDF - 免费Markdown转PDF在线工具 | 专业LaTeX数学公式渲染</title>
+  <meta name="description" content="免费在线Markdown转PDF工具，完美渲染LaTeX数学公式。支持中英文、代码高亮、多种主题。无需注册，无水印，浏览器端直接转换。MathPDF — 专业数学公式转换，学术写作首选。">
+  <meta name="keywords" content="Markdown转PDF, Markdown to PDF, LaTeX数学公式, 数学公式转PDF, MathPDF, 免费PDF转换, online markdown converter, math formula PDF, LaTeX to PDF, academic writing tool, 在线Markdown转换">
+  <meta name="author" content="MathPDF">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="./">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MathPDF - Free Markdown to PDF | Perfect Math Formula Rendering">
+  <meta property="og:description" content="Free online Markdown to PDF converter with perfect LaTeX math rendering. No registration, no watermark. Professional math formula conversion tool.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MathPDF - Free Markdown to PDF | Perfect LaTeX Math">
+  <meta name="twitter:description" content="Free online Markdown to PDF converter with perfect LaTeX math formula rendering. No registration needed.">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MathPDF",
+    "url": "./",
+    "description": "Free online Markdown to PDF converter with perfect LaTeX math formula rendering. Supports Chinese/English, code highlighting, multiple themes.",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Perfect LaTeX math formula rendering",
+      "Markdown to PDF conversion",
+      "Markdown to HTML export",
+      "Chinese and English bilingual support",
+      "Multiple preview themes",
+      "Code syntax highlighting",
+      "Image embedding via paste/drop",
+      "No registration required",
+      "No watermark",
+      "Browser-based, no installation"
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+
+  <!-- highlight.js theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <!-- App styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- MathJax 3 configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: { '[+]': ['amsmath', 'amssymb', 'mhchem'] },
+        tags: 'ams'
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      },
+      startup: {
+        pageReady: () => {
+          return MathJax.startup.defaultPageReady().then(() => {
+            document.body.classList.add('mathjax-ready');
+          });
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+  <!-- ========== Header ========== -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <span class="logo-text">Math<span class="logo-accent">PDF</span></span>
+      </div>
+    </div>
+    <div class="header-center">
+      <div class="toolbar-group">
+        <button id="btn-open" class="toolbar-btn" title="Open .md file">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span data-i18n="open">Open</span>
+        </button>
+        <button id="btn-save-md" class="toolbar-btn" title="Save as .md">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          <span data-i18n="saveMd">Save .md</span>
+        </button>
+        <div class="toolbar-divider"></div>
+        <select id="sel-theme" class="toolbar-select" title="Preview theme">
+          <option value="default" data-i18n="themeDefault">Default</option>
+          <option value="academic" data-i18n="themeAcademic">Academic</option>
+          <option value="minimal" data-i18n="themeMinimal">Minimal</option>
+          <option value="elegant" data-i18n="themeElegant">Elegant</option>
+        </select>
+        <select id="sel-paper" class="toolbar-select" title="Paper size">
+          <option value="A4" data-i18n="paperA4">A4</option>
+          <option value="Letter" data-i18n="paperLetter">Letter</option>
+          <option value="Legal" data-i18n="paperLegal">Legal</option>
+        </select>
+        <select id="sel-margin" class="toolbar-select" title="Margins">
+          <option value="normal" data-i18n="marginNormal">Normal</option>
+          <option value="narrow" data-i18n="marginNarrow">Narrow</option>
+          <option value="wide" data-i18n="marginWide">Wide</option>
+        </select>
+        <div class="toolbar-divider"></div>
+        <button id="btn-export" class="toolbar-btn btn-export" title="Export to PDF (Ctrl+P)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-i18n="exportPdf">Export PDF</span>
+        </button>
+        <button id="btn-export-html" class="toolbar-btn btn-export-html" title="Export as standalone HTML file">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+          <span data-i18n="exportHtml">Export HTML</span>
+        </button>
+        <button id="btn-open-browser" class="toolbar-btn btn-open-browser" title="Open rendered page in a new browser tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span data-i18n="openBrowser">Open in Browser</span>
+        </button>
+        <div class="toolbar-divider"></div>
+        <button id="btn-insert-image" class="toolbar-btn btn-insert-image" title="Insert image at cursor">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span data-i18n="insertImage">插入图片</span>
+        </button>
+        <button id="btn-download-skill" class="toolbar-btn btn-download-skill" title="Download MD-to-PDF skill for QoderWork">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-i18n="downloadSkill">下载 Skill</span>
+        </button>
+      </div>
+    </div>
+    <div class="header-right">
+      <select id="sel-lang" class="toolbar-select lang-select" title="Language / 语言">
+        <option value="zh">中文</option>
+        <option value="en">English</option>
+      </select>
+      <a href="https://github.com" target="_blank" class="github-link" title="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ========== Main Content ========== -->
+  <main class="main">
+    <!-- Editor Panel -->
+    <div class="panel panel-editor" id="panel-editor">
+      <div class="panel-header">
+        <span class="panel-label">MARKDOWN</span>
+        <span class="panel-hint" data-i18n="editorHint">GFM, LaTeX math, code blocks | Paste or drop images to embed</span>
+      </div>
+      <textarea id="editor" spellcheck="false" placeholder="Type or paste your Markdown here...
+
+# Quick Start
+
+## Math Formulas
+Inline: $E = mc^2$
+
+Display:
+$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$
+
+## Code Blocks
+```python
+print('Hello, World!')
+```
+
+## Tables
+| Feature | Support |
+|---------|---------|
+| LaTeX   | Yes     |
+| Chinese | Yes     |
+"></textarea>
+    </div>
+
+    <!-- Resize Handle -->
+    <div class="resize-handle" id="resize-handle"></div>
+
+    <!-- Preview Panel -->
+    <div class="panel panel-preview" id="panel-preview">
+      <div class="panel-header">
+        <span class="panel-label">PREVIEW</span>
+        <span class="panel-hint" id="render-status">Ready</span>
+      </div>
+      <div id="preview" class="preview-content tex2jax_process">
+        <div class="preview-placeholder">
+          <p>Start typing Markdown on the left to see the preview here.</p>
+          <p>Or click <strong>Open</strong> to load a .md file.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== Status Bar ========== -->
+  <footer class="statusbar">
+    <div class="statusbar-left">
+      <span id="stat-lines" class="stat-item">Lines: 0</span>
+      <span id="stat-words" class="stat-item">Words: 0</span>
+      <span id="stat-chars" class="stat-item">Chars: 0</span>
+    </div>
+    <div class="statusbar-right">
+      <span id="stat-save" class="stat-item stat-save"></span>
+      <span class="stat-item" data-i18n="ctrlPExport">Ctrl+P to export PDF</span>
+    </div>
+  </footer>
+
+  <!-- ========== Feedback Bar ========== -->
+  <div class="feedback-bar" id="feedback-bar">
+    <span class="feedback-text" data-i18n="feedbackPrompt">MathPDF — 免费 · 无水印 · 专业数学公式渲染</span>
+    <button id="btn-feedback" class="feedback-link" title="Click to copy email">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span id="feedback-label" data-i18n="feedbackLink">反馈与建议</span>
+    </button>
+  </div>
+
+  <!-- ========== Feedback Modal ========== -->
+  <div class="feedback-modal" id="feedback-modal" style="display:none">
+    <div class="feedback-modal-backdrop" id="feedback-modal-backdrop"></div>
+    <div class="feedback-modal-content">
+      <button class="feedback-modal-close" id="feedback-modal-close">&times;</button>
+      <div class="feedback-modal-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <h3 class="feedback-modal-title" data-i18n="feedbackModalTitle">联系我们</h3>
+      <p class="feedback-modal-desc" data-i18n="feedbackModalDesc">如有问题或建议，欢迎通过邮件联系</p>
+      <div class="feedback-modal-email" id="feedback-modal-email">o.mallowan@outlook.com</div>
+      <p class="feedback-modal-copied" id="feedback-modal-copied" style="display:none" data-i18n="feedbackModalCopied">已复制到剪贴板!</p>
+      <button class="feedback-modal-copy-btn" id="feedback-modal-copy-btn" data-i18n="feedbackModalCopy">复制邮箱地址</button>
+    </div>
+  </div>
+
+  <!-- ========== Hidden Admin Analytics Dashboard ========== -->
+  <div class="admin-dashboard" id="admin-dashboard" style="display:none">
+    <div class="admin-header">
+      <h2>MathPDF Analytics Dashboard</h2>
+      <button id="admin-close" class="admin-close-btn">&times;</button>
+    </div>
+    <div class="admin-body">
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="admin-stat-value" id="admin-visits">0</div>
+          <div class="admin-stat-label">Total Visits</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value" id="admin-today-visits">0</div>
+          <div class="admin-stat-label">Today</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value" id="admin-pdf-exports">0</div>
+          <div class="admin-stat-label">PDF Exports</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value" id="admin-html-exports">0</div>
+          <div class="admin-stat-label">HTML Exports</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value" id="admin-browser-opens">0</div>
+          <div class="admin-stat-label">Browser Opens</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value" id="admin-file-opens">0</div>
+          <div class="admin-stat-label">File Opens</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value" id="admin-md-saves">0</div>
+          <div class="admin-stat-label">MD Saves</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value" id="admin-images-pasted">0</div>
+          <div class="admin-stat-label">Images Pasted</div>
+        </div>
+      </div>
+      <div class="admin-section">
+        <h3>Recent Visit Log (Last 30 Days)</h3>
+        <div id="admin-visit-log" class="admin-visit-log"></div>
+      </div>
+      <div class="admin-section">
+        <h3>Feature Usage Breakdown</h3>
+        <div id="admin-usage-breakdown" class="admin-usage-breakdown"></div>
+      </div>
+      <div class="admin-section">
+        <h3>Data Management</h3>
+        <button id="admin-export-data" class="admin-btn">Export Analytics Data (JSON)</button>
+        <button id="admin-reset-data" class="admin-btn admin-btn-danger">Reset All Analytics</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden file input -->
+  <input type="file" id="file-input" accept=".md,.markdown,.txt,.text" style="display:none">
+  <input type="file" id="image-folder-input" webkitdirectory multiple accept="image/*" style="display:none">
+  <input type="file" id="image-input" accept="image/*" style="display:none">
+
+  <!-- markdown-it (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+  <!-- highlight.js (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- Skill data (embedded SKILL.md for download) -->
+  <script src="js/skill-data.js"></script>
+  <!-- App script -->
+  <script src="js/app.js"></script>
+</body>
+</html>
