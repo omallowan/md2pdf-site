@@ -1,0 +1,25 @@
+{
+  "name": "MathPDF - Markdown to PDF Converter",
+  "short_name": "MathPDF",
+  "description": "Free online Markdown to PDF converter with perfect LaTeX math formula rendering. No registration, no watermark.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a90d9",
+  "orientation": "any",
+  "categories": ["productivity", "utilities", "education"],
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

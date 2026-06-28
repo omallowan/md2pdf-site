@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Main page -->
+  <url>
+    <loc>https://omallowan.github.io/md2pdf-site/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://omallowan.github.io/md2pdf-site/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://omallowan.github.io/md2pdf-site/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://omallowan.github.io/md2pdf-site/"/>
+  </url>
+</urlset>

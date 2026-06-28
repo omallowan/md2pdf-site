@@ -1,0 +1,29 @@
+# MathPDF robots.txt
+# https://omallowan.github.io/md2pdf-site/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://omallowan.github.io/md2pdf-site/sitemap.xml
+
+# Disallow admin and test paths
+Disallow: /TEST/
+Disallow: /admin/
+Disallow: /.git/
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
